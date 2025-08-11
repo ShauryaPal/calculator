@@ -10,27 +10,39 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
+
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
+
       - name: Install Capacitor CLI
         run: npm i -g @capacitor/cli
-      - name: Install dependencies (if any)
-        run: |
-          [ -f package.json ] && npm ci || true
-      - name: Capacitor sync (generate Android project)
+
+      # Add Android platform (idempotent)
+      - name: Capacitor add android
+        run: npx cap add android --npm-client npm || echo "Android already added"
+
+      # Generate/update the Android project files
+      - name: Capacitor sync
         run: npx cap sync android
+
+      - name: Make Gradle wrapper executable
+        run: chmod +x android/gradlew
+
       - name: Build debug APK
         working-directory: android
         run: ./gradlew assembleDebug
+
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
