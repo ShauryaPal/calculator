@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>All-in-One Calculator</title>
+  <!-- Tailwind via CDN for a lightweight, modern UI -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="./assets/icon.png" />
+  <style>
+    .card {
+      background: rgb(var(--card));
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+    .input {
+      width: 100%;
+      border: 1px solid #e5e7eb; /* gray-200 */
+      border-radius: 0.75rem;     /* rounded-xl */
+      padding: 0.5rem 0.75rem;    /* px-3 py-2 */
+      outline: none;
+    }
+    .input:focus {
+      box-shadow: 0 0 0 2px rgba(59,130,246,0.5); /* focus:ring-blue-500 */
+      border-color: #93c5fd; /* blue-300 */
+    }
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+</style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+  <header class="sticky top-0 z-10 bg-white/80 backdrop-blur border-b">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <h1 class="text-2xl font-bold tracking-tight">All‑in‑One Calculator</h1>
+      <nav class="hidden sm:flex gap-2">
+        <button data-view="basic" class="nav-btn px-3 py-2 rounded-lg hover:bg-gray-100">Basic</button>
+        <button data-view="unit" class="nav-btn px-3 py-2 rounded-lg hover:bg-gray-100">Unit</button>
+        <button data-view="currency" class="nav-btn px-3 py-2 rounded-lg hover:bg-gray-100">Currency</button>
+        <button data-view="discount" class="nav-btn px-3 py-2 rounded-lg hover:bg-gray-100">Discount</button>
+        <button data-view="tip" class="nav-btn px-3 py-2 rounded-lg hover:bg-gray-100">Tip</button>
+        <button data-view="date" class="nav-btn px-3 py-2 rounded-lg hover:bg-gray-100">Date</button>
+        <button data-view="gpa" class="nav-btn px-3 py-2 rounded-lg hover:bg-gray-100">GPA</button>
+        <button data-view="loan" class="nav-btn px-3 py-2 rounded-lg hover:bg-gray-100">Loan</button>
+        <button data-view="bmi" class="nav-btn px-3 py-2 rounded-lg hover:bg-gray-100">BMI</button>
+      </nav>
+      <button id="menuBtn" class="sm:hidden p-2 rounded-lg hover:bg-gray-100" aria-label="Menu">
+        ☰
+      </button>
+    </div>
+    <div id="mobileNav" class="sm:hidden hidden border-t">
+      <div class="max-w-6xl mx-auto px-4 py-3 grid grid-cols-2 gap-2">
+        <button data-view="basic" class="nav-btn px-3 py-2 rounded-lg hover:bg-gray-100 text-left">Basic</button>
+        <button data-view="unit" class="nav-btn px-3 py-2 rounded-lg hover:bg-gray-100 text-left">Unit</button>
+        <button data-view="currency" class="nav-btn px-3 py-2 rounded-lg hover:bg-gray-100 text-left">Currency</button>
+        <button data-view="discount" class="nav-btn px-3 py-2 rounded-lg hover:bg-gray-100 text-left">Discount</button>
+        <button data-view="tip" class="nav-btn px-3 py-2 rounded-lg hover:bg-gray-100 text-left">Tip</button>
+        <button data-view="date" class="nav-btn px-3 py-2 rounded-lg hover:bg-gray-100 text-left">Date</button>
+        <button data-view="gpa" class="nav-btn px-3 py-2 rounded-lg hover:bg-gray-100 text-left">GPA</button>
+        <button data-view="loan" class="nav-btn px-3 py-2 rounded-lg hover:bg-gray-100 text-left">Loan</button>
+        <button data-view="bmi" class="nav-btn px-3 py-2 rounded-lg hover:bg-gray-100 text-left">BMI</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-6">
+    <div class="grid md:grid-cols-3 gap-6 items-start">
+      <!-- Sidebar -->
+      <aside class="md:sticky md:top-[84px] md:h-[calc(100vh-96px)] md:overflow-auto card p-4">
+        <h2 class="text-lg font-semibold mb-2">Modules</h2>
+        <div class="grid sm:grid-cols-2 md:grid-cols-1 gap-2">
+          <button data-view="basic" class="nav-btn text-left px-3 py-2 rounded-lg hover:bg-gray-100">🧮 Basic Calculator</button>
+          <button data-view="unit" class="nav-btn text-left px-3 py-2 rounded-lg hover:bg-gray-100">📏 Unit Converter</button>
+          <button data-view="currency" class="nav-btn text-left px-3 py-2 rounded-lg hover:bg-gray-100">💱 Currency Converter</button>
+          <button data-view="discount" class="nav-btn text-left px-3 py-2 rounded-lg hover:bg-gray-100">🏷️ Discount Calculator</button>
+          <button data-view="tip" class="nav-btn text-left px-3 py-2 rounded-lg hover:bg-gray-100">💁 Tip Calculator</button>
+          <button data-view="date" class="nav-btn text-left px-3 py-2 rounded-lg hover:bg-gray-100">📅 Date Calculator</button>
+          <button data-view="gpa" class="nav-btn text-left px-3 py-2 rounded-lg hover:bg-gray-100">🎓 GPA Calculator</button>
+          <button data-view="loan" class="nav-btn text-left px-3 py-2 rounded-lg hover:bg-gray-100">🏦 Loan Calculator</button>
+          <button data-view="bmi" class="nav-btn text-left px-3 py-2 rounded-lg hover:bg-gray-100">⚖️ BMI Calculator</button>
+        </div>
+        <div class="mt-6 border-t pt-4 text-sm text-gray-600">
+          <p>Everything runs locally in your browser. For live currency rates, the app calls a free open API.</p>
+        </div>
+      </aside>
+
+      <!-- Content -->
+      <section id="viewContainer" class="md:col-span-2 space-y-6">
+        <!-- Views are injected here -->
+      </section>
+    </div>
+  </main>
+
+  <footer class="py-10 text-center text-sm text-gray-500">
+    <p>© <span id="year"></span> All‑in‑One Calculator • Built with ❤️</p>
+  </footer>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "all-in-one-calculator",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Simple, modern, responsive calculator web app with multiple modules.",
+  "scripts": {
+    "serve": "python3 -m http.server 5173",
+    "cap:init": "npx cap init All-in-One-Calculator com.example.calculator --web-dir=.",
+    "cap:add:android": "npx cap add android",
+    "cap:sync": "npx cap sync"
+  }
+}

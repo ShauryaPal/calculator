@@ -1,0 +1,9 @@
+{
+  "appId": "com.example.calculator",
+  "appName": "All-in-One Calculator",
+  "webDir": ".",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  }
+}
