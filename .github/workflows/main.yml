@@ -8,6 +8,7 @@ on:
 jobs:
   build-apk:
     runs-on: ubuntu-22.04
+
     steps:
       - uses: actions/checkout@v4
 
@@ -25,20 +26,24 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Install Capacitor CLI
-        run: npm i -g @capacitor/cli
+      # Install Capacitor packages into THIS repo (needed for npx cap add)
+      - name: Install Capacitor deps
+        run: |
+          npm pkg set name="all-in-one-calculator" >/dev/null 2>&1 || true
+          npm i --no-audit --no-fund @capacitor/core @capacitor/cli @capacitor/android
 
-      # Add Android platform (idempotent)
+      # Create the android/ project (idempotent)
       - name: Capacitor add android
-        run: npx cap add android --npm-client npm || echo "Android already added"
+        run: npx cap add android --yes
 
-      # Generate/update the Android project files
+      # Sync web files into android/ and ensure Gradle wrapper is executable
       - name: Capacitor sync
         run: npx cap sync android
 
       - name: Make Gradle wrapper executable
         run: chmod +x android/gradlew
 
+      # Build the debug APK
       - name: Build debug APK
         working-directory: android
         run: ./gradlew assembleDebug
